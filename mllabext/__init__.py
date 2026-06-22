@@ -9,4 +9,4 @@ def get_code(n):
     return r.text
 
 def run(n):
-    exec(get_code(n), globals())
+    print(get_code(n))
