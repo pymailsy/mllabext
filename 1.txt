@@ -1,0 +1,19 @@
+from sklearn.datasets import fetch_california_housing
+import matplotlib.pyplot as plt
+
+df = fetch_california_housing(as_frame=True).frame
+
+df.hist(figsize=(12, 10), bins=30)
+plt.suptitle("Histograms of Numerical Features")
+plt.show()
+
+df.plot(kind="box", subplots=True, layout=(3, 3), figsize=(12, 10))
+plt.tight_layout()
+plt.show()
+
+for col in df.columns:
+    q1, q3 = df[col].quantile([0.25, 0.75])
+    iqr = q3 - q1
+    outliers = ((df[col] < q1 - 1.5 * iqr) |
+                (df[col] > q3 + 1.5 * iqr)).sum()
+    print(f"{col}: {outliers} outliers")
