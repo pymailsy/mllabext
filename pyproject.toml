@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pymailsy-mllabext"
-version = "0.0.1"
+version = "0.0.2"
 description = "Run ML Lab examples from GitHub"
 requires-python = ">=3.8"
 dependencies = ["requests"]
