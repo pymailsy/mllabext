@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(0)
+X = np.linspace(0, 10, 100)
+Y = np.sin(X) + np.random.normal(0, 0.2, 100)
+
+def lwr(x0, X, Y, tau):
+    W = np.exp(-(X - x0)**2 / (2 * tau**2))
+    X_mat = np.column_stack((np.ones(len(X)), X))
+    W_mat = np.diag(W)
+
+    theta = np.linalg.pinv(X_mat.T @ W_mat @ X_mat) @ (X_mat.T @ W_mat @ Y)
+    return np.array([1, x0]) @ theta
+
+tau = 0.5
+Y_pred = np.array([lwr(x, X, Y, tau) for x in X])
+
+plt.figure(figsize=(8, 5))
+plt.scatter(X, Y, color='blue', label='Data Points')
+plt.plot(X, Y_pred, color='red', linewidth=2,
+         label='Locally Weighted Regression')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Locally Weighted Regression')
+plt.legend()
+plt.show()
